@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "Resulting helper scripts",
+    "version": "1.0",
+    "description": "Shows/Hides IR games from the new resulting tool",
+    "permissions": [
+      "contextMenus",
+      "activeTab",
+      "scripting"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    }
+  }
+  
