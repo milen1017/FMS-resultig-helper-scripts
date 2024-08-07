@@ -1,10 +1,15 @@
 let isActive = false;
 
 chrome.runtime.onInstalled.addListener(() => {
-  // Create the context menu item
+  // Create the context menu items
   chrome.contextMenus.create({
     id: "toggleHideTables",
     title: "Toggle IR games",
+    contexts: ["all"]
+  });
+  chrome.contextMenus.create({
+    id: "exportNotes",
+    title: "Export Notes",
     contexts: ["all"]
   });
 });
@@ -16,6 +21,11 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       target: { tabId: tab.id },
       func: toggleHideTables,
       args: [isActive]
+    });
+  } else if (info.menuItemId === "exportNotes") {
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: exportNotes
     });
   }
 });
@@ -142,5 +152,42 @@ function toggleHideTables(isActive) {
         table.style.display = '';
       }
     });
+  }
+}
+
+// Function to export notes and corresponding text content
+function exportNotes() {
+  const notes = [];
+  const divs = document.querySelectorAll('.scrapedSourcesPanel');
+
+  divs.forEach((div) => {
+    const table = div.closest('table.matchPanel');
+    const gwtHTMLDiv = table ? table.querySelector('div.gwt-HTML') : null;
+    const note = div.dataset.note || '';
+    const gwtHTMLText = gwtHTMLDiv ? gwtHTMLDiv.textContent.trim() : '';
+
+    if (note) {
+      notes.push({
+        gwtHTMLText: gwtHTMLText,
+        note: note
+      });
+    }
+  });
+
+  if (notes.length > 0) {
+    const csvContent = 'data:text/csv;charset=utf-8,'
+      + 'Game,Note\n'
+      + notes.map(e => `${e.gwtHTMLText},${e.note}`).join('\n');
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', 'notes_export.csv');
+    document.body.appendChild(link);
+
+    link.click();
+    document.body.removeChild(link);
+  } else {
+    alert('No notes to export.');
   }
 }
