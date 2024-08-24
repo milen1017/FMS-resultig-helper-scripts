@@ -203,6 +203,11 @@ function hideTables() {
   };
 
   const addNoteButton = (button) => {
+
+    if (button.textContent.trim() !== "Open") {
+      return;
+    }
+    
     if (button.nextElementSibling && button.nextElementSibling.classList.contains('note-button')) {
       return;
     }
