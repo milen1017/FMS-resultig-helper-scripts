@@ -151,7 +151,9 @@ function observeAndAddNoteButtons() {
 function showNotePreview(noteKey, button) {
   chrome.storage.local.get([`Note: ${noteKey}`], (result) => {
     const noteContent = result[`Note: ${noteKey}`];
-
+    if (!noteContent) {
+      return;
+    }
     const preview = document.createElement('div');
     preview.className = 'note-preview';
     preview.style.position = 'absolute';
