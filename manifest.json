@@ -2,6 +2,16 @@
     "manifest_version": 3,
     "name": "Resulting helper scripts",
     "version": "1.0",
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["hideTables.js",
+        "notes.js",
+        "showTables.js",
+        "viewAllNotes.js",
+        "content.js"]
+      }
+    ],
     "description": "Shows/Hides IR games from the new resulting tool",
     "permissions": [
       "contextMenus",
@@ -14,7 +24,11 @@
       "type": "module"
     },
     "action": {
-      "default_popup": "popup.html"
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icons/action-icon16.png"
+        
+      }
     }
   }
   
