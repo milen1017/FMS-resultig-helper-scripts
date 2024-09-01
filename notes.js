@@ -21,15 +21,26 @@ function addNoteButton(button) {
   noteButton.style.fontSize = buttonStyles.fontSize;
   noteButton.style.lineHeight = buttonStyles.lineHeight;
 
-  noteButton.style.marginLeft = "10px"; // Add left margin, adjust as needed
-  noteButton.style.marginTop = "5px"; // Add top margin, adjust as needed
+  noteButton.style.marginLeft = "10px";
+  noteButton.style.marginTop = "5px";
 
   const table = button.closest("table.matchPanel");
   const noteKey = table
     ? table.querySelector("div.gwt-HTML")?.textContent.trim()
     : null;
 
-  // Add the event listener to open a popup with a note box
+  // Check if a note exists and set the background color accordingly
+  if (noteKey) {
+    chrome.storage.local.get([`Note: ${noteKey}`], (result) => {
+      if (result[`Note: ${noteKey}`]) {
+      
+        noteButton.style.border = "2px solid #91d5ff";
+      } else {
+        noteButton.style.border = "1px solid #d9d9d9";
+      }
+    });
+  }
+
   noteButton.addEventListener("click", function () {
     if (noteKey) {
       openNotePopup(noteKey);
@@ -38,7 +49,6 @@ function addNoteButton(button) {
     }
   });
 
-  // Add hover functionality
   noteButton.addEventListener("mouseenter", function () {
     if (noteKey) {
       showNotePreview(noteKey, noteButton);
@@ -46,6 +56,17 @@ function addNoteButton(button) {
   });
 
   button.insertAdjacentElement("afterend", noteButton);
+
+  // Update button color when a note is saved or deleted
+  noteButton.updateColor = function() {
+    chrome.storage.local.get([`Note: ${noteKey}`], (result) => {
+      if (result[`Note: ${noteKey}`]) {
+        noteButton.style.border = "2px solid #91d5ff";
+      } else {
+        noteButton.style.border = "1px solid #d9d9d9";
+      }
+    });
+  };
 }
 
 function openNotePopup(noteKey) {
@@ -123,6 +144,8 @@ function openNotePopup(noteKey) {
       console.log(`Note saved with key: ${noteKey}`);
     });
     document.body.removeChild(popup);
+    document.querySelectorAll('.note-button').forEach(btn => btn.updateColor && btn.updateColor());
+
   });
   buttonContainer.appendChild(saveButton);
 
@@ -133,6 +156,8 @@ function openNotePopup(noteKey) {
       chrome.storage.local.remove(`Note: ${noteKey}`, () => {
         console.log(`Note deleted: ${noteKey}`);
         document.body.removeChild(popup);
+        document.querySelectorAll('.note-button').forEach(btn => btn.updateColor && btn.updateColor());
+
       });
     }
   });

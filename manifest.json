@@ -1,34 +1,35 @@
 {
-    "manifest_version": 3,
-    "name": "Resulting helper scripts",
-    "version": "1.0",
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["hideTables.js",
+  "manifest_version": 3,
+  "name": "Resulting helper scripts",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://newresulting.production.tradingtools.geniussports.com/Resulting/*",
+        "https://operationalwebservices.app.production.sbmi.geniussports.com/emtools/Pages/Resulting/event-tracker.aspx"
+      ],
+      "js": [
+        "hideTables.js",
         "notes.js",
         "showTables.js",
         "viewAllNotes.js",
-        "content.js"]
-      }
-    ],
-    "description": "Shows/Hides IR games from the new resulting tool",
-    "permissions": [
-      "contextMenus",
-      "activeTab",
-      "scripting",
-      "storage"
-    ],
-    "background": {
-      "service_worker": "background.js",
-      "type": "module"
-    },
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "icons/action-icon16.png"
-        
-      }
+        "content.js"
+      ]
+    }
+  ],
+  "description": "Shows/Hides IR games from the new resulting tool",
+  "permissions": ["contextMenus", "activeTab", "scripting", "storage"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module",
+    "context_menu_icons": {
+      "16": "icons/action-icon16.png"
+    }
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/action-icon16.png"
     }
   }
-  
+}
