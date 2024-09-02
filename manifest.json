@@ -5,15 +5,23 @@
   "content_scripts": [
     {
       "matches": [
-        "https://newresulting.production.tradingtools.geniussports.com/Resulting/*",
-        "https://operationalwebservices.app.production.sbmi.geniussports.com/emtools/Pages/Resulting/event-tracker.aspx"
+        "https://newresulting.production.tradingtools.geniussports.com/Resulting/*"
       ],
       "js": [
         "hideTables.js",
         "notes.js",
         "showTables.js",
         "viewAllNotes.js",
-        "content.js"
+        "content.js",
+        "checkForMarkets.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://operationalwebservices.app.production.sbmi.geniussports.com/emtools/Pages/Resulting/event-tracker.aspx*"
+      ],
+      "js": [
+        "autoInputEventId.js"
       ]
     }
   ],
