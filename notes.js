@@ -33,7 +33,6 @@ function addNoteButton(button) {
   if (noteKey) {
     chrome.storage.local.get([`Note: ${noteKey}`], (result) => {
       if (result[`Note: ${noteKey}`]) {
-      
         noteButton.style.border = "2px solid #91d5ff";
       } else {
         noteButton.style.border = "1px solid #d9d9d9";
@@ -145,7 +144,6 @@ function openNotePopup(noteKey) {
     });
     document.body.removeChild(popup);
     document.querySelectorAll('.note-button').forEach(btn => btn.updateColor && btn.updateColor());
-
   });
   buttonContainer.appendChild(saveButton);
 
@@ -157,7 +155,6 @@ function openNotePopup(noteKey) {
         console.log(`Note deleted: ${noteKey}`);
         document.body.removeChild(popup);
         document.querySelectorAll('.note-button').forEach(btn => btn.updateColor && btn.updateColor());
-
       });
     }
   });
@@ -179,38 +176,14 @@ function showNotePreview(noteKey, button) {
     if (!noteContent) {
       return;
     }
-    const preview = document.createElement('div');
-    preview.className = 'note-preview';
-    preview.style.position = 'absolute';
-    preview.style.backgroundColor = '#fff';
-    preview.style.border = '1px solid #ccc';
-    preview.style.padding = '10px';
-    preview.style.borderRadius = '5px';
-    preview.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
-    preview.style.zIndex = '1000';
-    preview.style.maxWidth = '200px';
-    preview.style.wordWrap = 'break-word';
-    preview.textContent = noteContent.substring(0, 100) + (noteContent.length > 100 ? '...' : '');
 
-    const rect = button.getBoundingClientRect();
-    preview.style.top = `${rect.bottom + window.scrollY + 5}px`;
-    preview.style.left = `${rect.left + window.scrollX}px`;
+    // Trim the note content to fit within the tooltip
+    const previewText = noteContent.substring(0, 100) + (noteContent.length > 100 ? '...' : '');
 
-    document.body.appendChild(preview);
-
-    button.addEventListener('mouseleave', () => {
-      // Add a delay of 500 milliseconds (0.5 seconds) before removing the preview
-      setTimeout(() => {
-        document.body.removeChild(preview);
-      }, 500); // Adjust the delay time as needed
-    }, { once: true });
+    // Set the title attribute on the button to show the tooltip
+    button.setAttribute('title', previewText);
   });
 }
-
-
-
-
-
 
 window.observeAndAddNoteButtons = observeAndAddNoteButtons;
 window.addNoteButton = addNoteButton;
