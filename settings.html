@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        #settings-container {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="settings-container">
+        <h1>Settings</h1>
+        <label for="slack-webhook">Slack Webhook URL:</label>
+        <input type="text" id="slack-webhook" placeholder="Enter your Slack webhook URL">
+
+        <label for="discord-webhook">Discord Webhook URL:</label>
+        <input type="text" id="discord-webhook" placeholder="Enter your Discord webhook URL">
+
+        <button id="save-settings">Save</button>
+    </div>
+
+    <!-- <script>
+        // Load existing webhook URLs from storage
+        document.addEventListener('DOMContentLoaded', () => {
+            chrome.storage.local.get(['slackWebhookUrl', 'discordWebhookUrl'], (result) => {
+                document.getElementById('slack-webhook').value = result.slackWebhookUrl || '';
+                document.getElementById('discord-webhook').value = result.discordWebhookUrl || '';
+            });
+        });
+
+        // Save webhook URLs to storage
+        document.getElementById('save-settings').addEventListener('click', () => {
+            const slackWebhookUrl = document.getElementById('slack-webhook').value;
+            const discordWebhookUrl = document.getElementById('discord-webhook').value;
+
+            chrome.storage.local.set({
+                slackWebhookUrl: slackWebhookUrl,
+                discordWebhookUrl: discordWebhookUrl
+            }, () => {
+                alert('Settings saved successfully!');
+            });
+        });
+    </script> -->
+</body>
+</html>

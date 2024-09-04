@@ -1,4 +1,4 @@
-let isActive = false;
+let isActive = true;
 
 // Load the persisted state of isActive when the extension is loaded
 chrome.runtime.onInstalled.addListener(() => {

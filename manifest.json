@@ -26,13 +26,19 @@
     }
   ],
   "description": "Shows/Hides IR games from the new resulting tool",
-  "permissions": ["contextMenus", "activeTab", "scripting", "storage"],
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://hooks.slack.com/*",
+    "https://discord.com/api/webhooks/*"
+  ],
   "background": {
     "service_worker": "background.js",
-    "type": "module",
-    "context_menu_icons": {
-      "16": "icons/action-icon16.png"
-    }
+    "type": "module"
   },
   "action": {
     "default_popup": "popup.html",

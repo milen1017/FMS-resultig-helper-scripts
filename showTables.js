@@ -5,7 +5,9 @@
     if (window.hideTablesObserver) {
       window.hideTablesObserver.disconnect();
       window.hideTablesObserver = null;
-      console.log('MutationObserver disconnected.');
+      console.log('MutationObserver disconnected.');      
+      alert("No notes found.");
+
     }
   
     const matchPanelTables = document.querySelectorAll('table.matchPanel');
