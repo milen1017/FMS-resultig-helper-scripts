@@ -6,7 +6,7 @@
       window.hideTablesObserver.disconnect();
       window.hideTablesObserver = null;
       console.log('MutationObserver disconnected.');      
-      alert("No notes found.");
+     
 
     }
   

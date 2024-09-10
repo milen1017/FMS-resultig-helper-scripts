@@ -1,5 +1,5 @@
 function viewAllNotes() {
-  console.log("viewAllNotes function called.");
+  // console.log("viewAllNotes function called.");
 
   chrome.storage.local.get(null, (items) => {
     const notes = [];
@@ -121,12 +121,9 @@ function viewAllNotes() {
     });
 
 // Create and add the "Copy All Notes" button at the bottom center of the popup
-const copyButton = document.createElement("button");
 copyButton.innerText = "Copy All Notes";
-copyButton.style.position = "absolute";
-copyButton.style.bottom = "10px";
-copyButton.style.left = "50%";
-copyButton.style.transform = "translateX(-50%)";
+copyButton.style.display = "block";
+copyButton.style.margin = "20px auto 0 auto";  // Center it and add some margin
 copyButton.style.padding = "10px 20px";
 copyButton.style.backgroundColor = "#007bff";
 copyButton.style.color = "white";
@@ -144,7 +141,7 @@ copyButton.addEventListener("click", () => {
     copyButton.style.backgroundColor = "#28a745"; // Green background
     copyButton.style.color = "white";
 
-    // Revert back to the original state after 2 seconds
+    // Revert back to the original state after 0.3 seconds
     setTimeout(() => {
       copyButton.innerText = "Copy All Notes";
       copyButton.style.backgroundColor = "#007bff"; // Original blue background

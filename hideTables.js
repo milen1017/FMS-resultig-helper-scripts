@@ -11,7 +11,7 @@ function hideTables() {
           tablesHidden++;
         }
       });
-      console.log(`${tablesHidden} tables hidden.`);
+    //   console.log(`${tablesHidden} tables hidden.`);
     };
   
     hideIRTables();
@@ -44,7 +44,7 @@ function hideTables() {
               });
           });
           if (shouldReapply) {
-              console.log('Dynamic change detected, reapplying hide logic and adding note buttons.');
+            //   console.log('Dynamic change detected, reapplying hide logic and adding note buttons.');
               hideIRTables();
               observeAndAddNoteButtons(); // from notes.js
           }
