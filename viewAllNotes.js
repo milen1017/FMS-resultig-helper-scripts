@@ -121,6 +121,7 @@ function viewAllNotes() {
     });
 
 // Create and add the "Copy All Notes" button at the bottom center of the popup
+const copyButton = document.createElement("button");
 copyButton.innerText = "Copy All Notes";
 copyButton.style.display = "block";
 copyButton.style.margin = "20px auto 0 auto";  // Center it and add some margin
